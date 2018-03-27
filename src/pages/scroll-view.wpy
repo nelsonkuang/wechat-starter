@@ -1,0 +1,150 @@
+<style lang="less">
+.page-section {
+  margin-bottom: 20rpx;
+}
+.section {
+  display: block;
+  width: 100%;
+}
+.flex-wrp {
+  display: flex;
+  align-items: flex-start;
+}
+.bc_green {
+  background: green;
+}
+.bc_red {
+  background: red;
+}
+.bc_blue {
+  background: blue;
+}
+.bc_yellow {
+  background: yellow;
+}
+.scroll-view-item {
+  width: 100%;
+  height: 200rpx;
+}
+.scroll-view_H {
+  white-space: nowrap;
+  display: flex;
+}
+.scroll-view-item_H {
+  width: 400rpx;
+  height: 200rpx;
+  display: inline-block;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+    <view class="section">
+      <view class="section__title">vertical scroll</view>
+      <scroll-view scroll-y style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view id="green" class="scroll-view-item bc_green"></view>
+        <view id="red"  class="scroll-view-item bc_red"></view>
+        <view id="yellow" class="scroll-view-item bc_yellow"></view>
+        <view id="blue" class="scroll-view-item bc_blue"></view>
+      </scroll-view>
+
+      <view class="btn-area">
+        <button size="default" @tap="tap">click me to scroll into view </button>
+        <button size="default" @tap="tapMove">click me to scroll</button>
+      </view>
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">horizontal scroll</view>
+      <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%">
+        <view id="green" class="scroll-view-item_H bc_green"></view>
+        <view id="red"  class="scroll-view-item_H bc_red"></view>
+        <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
+        <view id="blue" class="scroll-view-item_H bc_blue"></view>
+      </scroll-view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import moduleA from 'module-a'; // aliasFields ignore module example
+
+console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
+
+const order = ['red', 'yellow', 'blue', 'green', 'red'];
+
+export default class View extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Scroll View'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    },
+    toView: 'red',
+    scrollTop: 100
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    },
+    upper(e) {
+      console.log(e);
+    },
+    lower(e) {
+      console.log(e);
+    },
+    scroll(e) {
+      console.log(e);
+    },
+    tap(e) {
+      for (var i = 0; i < order.length; ++i) {
+        if (order[i] === this.toView) {
+          this.toView = order[i + 1];
+          break;
+        }
+      }
+    },
+    tapMove(e) {
+      this.scrollTop = this.scrollTop + 10;
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    console.log(self);
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+  }
+}
+</script>
