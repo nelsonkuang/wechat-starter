@@ -51,22 +51,26 @@
       <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
       <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
     </view>
-  <view class="section">
-    <view class="section__title">flex-direction: row</view>
-    <view class="flex-wrp" style="flex-direction:row;">
-      <view class="flex-item bc_green">1</view>
-      <view class="flex-item bc_red">2</view>
-      <view class="flex-item bc_blue">3</view>
+    <view class="section">
+      <view class="section__title">movable-view区域小于movable-area</view>
+      <movable-area style="height: 200px; width: 200px; background: red;">
+        <movable-view style="height: 50px; width: 50px; background: blue;" x="{{x}}" y="{{y}}" direction="all">
+        </movable-view>
+      </movable-area>
+      <view class="btn-area">
+        <button size="mini" @tap="tap">click me to move to (30px, 30px)</button>
+      </view>
+      <view class="section__title">movable-view区域大于movable-area</view>
+      <movable-area style="height: 100px; width: 100px; background: red;">
+        <movable-view style="height: 200px; width: 200px; background: blue;" direction="all">
+        </movable-view>
+      </movable-area>
+      <view class="section__title">可放缩</view>
+      <movable-area style="height: 200px; width: 200px; background: red;" scale-area>
+        <movable-view style="height: 50px; width: 50px; background: blue;" direction="all" @change="onChange" @scale="onScale" scale scale-min="0.5" scale-max="4" scale-value="2">
+        </movable-view>
+      </movable-area>
     </view>
-  </view>
-  <view class="section">
-    <view class="section__title">flex-direction: column</view>
-    <view class="flex-wrp" style="height: 300px;flex-direction:column;">
-      <view class="flex-item bc_green">1</view>
-      <view class="flex-item bc_red">2</view>
-      <view class="flex-item bc_blue">3</view>
-    </view>
-  </view>
   </view>
 </template>
 
@@ -76,15 +80,17 @@ import moduleA from 'module-a'; // aliasFields ignore module example
 
 console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
 
-export default class ViewPage extends wepy.page {
+export default class MovableViewPage extends wepy.page {
   config = {
-    navigationBarTitleText: 'View'
+    navigationBarTitleText: 'Movable Area'
   };
   components = {};
   data = {
     userInfo: {
       nickName: '加载中...'
-    }
+    },
+    x: 0,
+    y: 0
   };
 
   computed = {};
@@ -92,6 +98,16 @@ export default class ViewPage extends wepy.page {
   methods = {
     handleViewTap(e) {
       console.log(e);
+    },
+    tap(e) {
+      this.x = 30;
+      this.y = 30;
+    },
+    onChange(e) {
+      console.log(e.detail);
+    },
+    onScale(e) {
+      console.log(e.detail);
     }
   };
 

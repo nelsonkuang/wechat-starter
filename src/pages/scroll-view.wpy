@@ -95,7 +95,7 @@ console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
 
 const order = ['red', 'yellow', 'blue', 'green', 'red'];
 
-export default class View extends wepy.page {
+export default class ScrollViewPage extends wepy.page {
   config = {
     navigationBarTitleText: 'Scroll View'
   };

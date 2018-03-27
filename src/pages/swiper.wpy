@@ -58,7 +58,7 @@ import moduleA from 'module-a'; // aliasFields ignore module example
 
 console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
 
-export default class View extends wepy.page {
+export default class SwiperPage extends wepy.page {
   config = {
     navigationBarTitleText: 'Swiper'
   };

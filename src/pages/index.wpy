@@ -29,6 +29,7 @@
 }
 .navigator-hover {
   color: rgb(3, 3, 128);
+  background-color: #ddd;
 }
 </style>
 <template>
@@ -40,6 +41,7 @@
         <navigator url="/pages/view" class="navigator" hover-class="navigator-hover">VIEW</navigator>
         <navigator url="/pages/scroll-view" class="navigator" hover-class="navigator-hover">SCROLL VIEW</navigator>
         <navigator url="/pages/swiper" class="navigator" hover-class="navigator-hover">SWIPER</navigator>
+        <navigator url="/pages/movable-area" class="navigator" hover-class="navigator-hover">Movable Area</navigator>
       </view>
     </panel>
 
