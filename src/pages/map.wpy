@@ -1,0 +1,154 @@
+<style lang="less">
+.page-section {
+  margin-bottom: 20rpx;
+}
+.section {
+  display: block;
+  width: 100%;
+}
+.flex-wrp {
+  display: flex;
+  align-items: flex-start;
+}
+.bc_green {
+  background: green;
+  width: 100px;
+  height: 100px;
+}
+.bc_red {
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+.bc_blue {
+  background: blue;
+  width: 100px;
+  height: 100px;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+  <view class="section">
+    <view class="section__title">Map</view>
+    <map id="map" longitude="113.324520" latitude="23.099994" scale="14" controls="{{controls}}" @controltap="controltap" markers="{{markers}}" @markertap="markertap" polyline="{{polyline}}" @regionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+  </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import moduleA from 'module-a'; // aliasFields ignore module example
+
+console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
+
+export default class MapPage extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Map'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    },
+    markers: [
+      {
+        iconPath: '../images/others.png',
+        id: 0,
+        latitude: 23.099994,
+        longitude: 113.32452,
+        width: 42,
+        height: 42
+      },
+      {
+        iconPath: '../images/others.png',
+        id: 2,
+        latitude: 23.21229,
+        longitude: 113.3245211,
+        width: 42,
+        height: 42
+      }
+    ],
+    polyline: [
+      {
+        points: [
+          {
+            longitude: 113.3245211,
+            latitude: 23.10229
+          },
+          {
+            longitude: 113.32452,
+            latitude: 23.21229
+          }
+        ],
+        color: '#FF0000DD',
+        width: 2,
+        dottedLine: true
+      }
+    ],
+    controls: [
+      {
+        id: 1,
+        iconPath: '../images/location.png',
+        position: {
+          left: 0,
+          top: 300 - 50,
+          width: 50,
+          height: 50
+        },
+        clickable: true
+      }
+    ]
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    },
+    regionchange(e) {
+      console.log(e.type);
+    },
+    markertap(e) {
+      console.log(e.markerId);
+    },
+    controltap(e) {
+      console.log(e.controlId);
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    console.log(self);
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+  }
+}
+</script>

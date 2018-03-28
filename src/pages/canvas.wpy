@@ -1,0 +1,121 @@
+<style lang="less">
+.page-section {
+  margin-bottom: 20rpx;
+}
+.section {
+  display: block;
+  width: 100%;
+}
+.flex-wrp {
+  display: flex;
+  align-items: flex-start;
+}
+.bc_green {
+  background: green;
+  width: 100px;
+  height: 100px;
+}
+.bc_red {
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+.bc_blue {
+  background: blue;
+  width: 100px;
+  height: 100px;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+  <view class="section">
+    <view class="section__title">Canvas</view>
+    <!-- canvas.wxml -->
+    <canvas style="width: 300px; height: 200px;" canvas-id="firstCanvas"></canvas>
+    <!-- 当使用绝对定位时，文档流后边的 canvas 的显示层级高于前边的 canvas -->
+    <canvas style="width: 400px; height: 500px;" canvas-id="secondCanvas"></canvas>
+  </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class CanvasPage extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Canvas'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    }
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    console.log(self);
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+  }
+  canvasIdErrorCallback(e) {
+    console.error(e.detail.errMsg);
+  }
+  onReady(e) {
+    // 使用 wx.createContext 获取绘图上下文 context
+    var context = wepy.createCanvasContext('firstCanvas');
+
+    context.setStrokeStyle('#00ff00');
+    context.setLineWidth(5);
+    context.rect(0, 0, 200, 200);
+    context.stroke();
+    context.setStrokeStyle('#ff0000');
+    context.setLineWidth(2);
+    context.moveTo(160, 100);
+    context.arc(100, 100, 60, 0, 2 * Math.PI, true);
+    context.moveTo(140, 100);
+    context.arc(100, 100, 40, 0, Math.PI, false);
+    context.moveTo(85, 80);
+    context.arc(80, 80, 5, 0, 2 * Math.PI, true);
+    context.moveTo(125, 80);
+    context.arc(120, 80, 5, 0, 2 * Math.PI, true);
+    context.stroke();
+    context.draw();
+  }
+}
+</script>

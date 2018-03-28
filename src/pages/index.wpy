@@ -46,6 +46,8 @@
         <navigator url="/pages/basic-tags" class="navigator" hover-class="navigator-hover">Base Tags</navigator>
         <navigator url="/pages/form-tags" class="navigator" hover-class="navigator-hover">Form Tags</navigator>
         <navigator url="/pages/images" class="navigator" hover-class="navigator-hover">Image</navigator>
+        <navigator url="/pages/map" class="navigator" hover-class="navigator-hover">Map</navigator>
+        <navigator url="/pages/canvas" class="navigator" hover-class="navigator-hover">Canvas</navigator>
       </view>
     </panel>
 
@@ -105,6 +107,8 @@
       <list></list>
     </panel>
 
+    <imgloader :imgLoadList="imgLoadList" :imgsLoaded="imgsLoaded"></imgloader>
+
     <toast />
   </view>
 </template>
@@ -117,6 +121,7 @@ import List from '../components/list'; // aliasFields example
 import moduleA from 'module-a'; // aliasFields ignore module example
 import Group from '../components/group';
 import Toast from 'wepy-com-toast';
+import ImgLoader from '../components/img-loader'; // alias example
 import testMixin from '../mixins/test';
 
 console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
@@ -131,7 +136,8 @@ export default class Index extends wepy.page {
     counter2: Counter,
     list: List,
     group: Group,
-    toast: Toast
+    toast: Toast,
+    imgloader: ImgLoader
   };
 
   mixins = [testMixin];
@@ -192,7 +198,8 @@ export default class Index extends wepy.page {
           }
         ]
       }
-    ]
+    ],
+    imgLoadList: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
   };
 
   computed = {
@@ -200,6 +207,10 @@ export default class Index extends wepy.page {
       return +new Date();
     }
   };
+
+  imgsLoaded () {
+    this.imgLoadList = [];
+  }
 
   methods = {
     plus() {
