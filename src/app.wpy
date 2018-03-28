@@ -19,7 +19,9 @@ export default class extends wepy.app {
       'pages/view',
       'pages/scroll-view',
       'pages/swiper',
-      'pages/movable-area'
+      'pages/movable-area',
+      'pages/cover-view',
+      'pages/basic-tags'
     ],
     window: {
       backgroundTextStyle: 'light',

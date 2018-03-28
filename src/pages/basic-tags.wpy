@@ -1,0 +1,171 @@
+<style lang="less">
+.page-section {
+  margin-bottom: 20rpx;
+}
+.section {
+  display: block;
+  width: 100%;
+  margin-bottom: 20rpx;
+  .section__title {
+    font-weight: 700;
+  }
+}
+.flex-wrp {
+  display: flex;
+  align-items: flex-start;
+}
+.bc_green {
+  background: green;
+  width: 100px;
+  height: 100px;
+}
+.bc_red {
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+.bc_blue {
+  background: blue;
+  width: 100px;
+  height: 100px;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+    <view class="section">
+      <view class="section__title">Icons</view>
+      <view class="group">
+        <block wx:for="{{icons.iconSize}}" wx:key="key">
+          <icon type="success" size="{{item}}"/>
+        </block>
+      </view>
+      <view class="group">
+        <block wx:for="{{icons.iconType}}" wx:key="key">
+          <icon type="{{item}}" size="40"/>
+        </block>
+      </view>
+      <view class="group">
+        <block wx:for="{{icons.iconColor}}" wx:key="key">
+          <icon type="success" size="40" color="{{item}}"/>
+        </block>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section__title">Text</view>
+      <text>{{text}}</text>
+    </view>
+    <view class="section">
+      <view class="section__title">Rich Text</view>
+      <rich-text nodes="{{nodes}}" ></rich-text>
+    </view>
+    <view class="section">
+      <view class="section__title">Progress</view>
+      <progress percent="20" show-info style="margin-bottom:10px;"/>
+      <progress percent="40" stroke-width="12" style="margin-bottom:10px;"/>
+      <progress percent="60" color="pink" style="margin-bottom:10px;"/>
+      <progress percent="80" active style="margin-bottom:10px;"/>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import moduleA from 'module-a'; // aliasFields ignore module example
+
+console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
+
+export default class BasicTagsPage extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Basic Tags'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    },
+    icons: {
+      iconSize: [20, 30, 40, 50, 60, 70],
+      iconColor: [
+        'red',
+        'orange',
+        'yellow',
+        'green',
+        'rgb(0,255,255)',
+        'blue',
+        'purple'
+      ],
+      iconType: [
+        'success',
+        'success_no_circle',
+        'info',
+        'warn',
+        'waiting',
+        'cancel',
+        'download',
+        'search',
+        'clear'
+      ]
+    },
+    text: 'this is first line\nthis is second line',
+    nodes: [
+      // type = nodes
+      {
+        name: 'div',
+        attrs: {
+          class: 'div_class',
+          style:
+            'line-height: 60px; color: red;font-weight: 700;background-color:green;'
+        },
+        children: [
+          {
+            type: 'text',
+            text: 'Hello&nbsp;World! I am Nelson!'
+          }
+        ]
+      }
+    ]
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    console.log(self);
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+  }
+}
+</script>

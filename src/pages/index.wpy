@@ -42,6 +42,8 @@
         <navigator url="/pages/scroll-view" class="navigator" hover-class="navigator-hover">SCROLL VIEW</navigator>
         <navigator url="/pages/swiper" class="navigator" hover-class="navigator-hover">SWIPER</navigator>
         <navigator url="/pages/movable-area" class="navigator" hover-class="navigator-hover">Movable Area</navigator>
+        <navigator url="/pages/cover-view" class="navigator" hover-class="navigator-hover">Cover View</navigator>
+        <navigator url="/pages/basic-tags" class="navigator" hover-class="navigator-hover">Base Tags</navigator>
       </view>
     </panel>
 

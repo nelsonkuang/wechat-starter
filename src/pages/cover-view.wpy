@@ -1,0 +1,112 @@
+<style lang="less">
+.controls {
+  position: relative;
+  top: 50%;
+  height: 50px;
+  margin-top: -25px;
+  display: flex;
+}
+.play,
+.pause,
+.time {
+  flex: 1;
+  height: 100%;
+}
+.time {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  line-height: 50px;
+}
+.img {
+  width: 40px;
+  height: 40px;
+  margin: 5px auto;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+    <video id="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls="{{false}}" event-model="bubble">
+      <cover-view class="controls">
+        <cover-view class="play" bindtap="play">
+          <cover-image class="img" src="../images/play.png" />
+        </cover-view>
+        <cover-view class="pause" bindtap="pause">
+          <cover-image class="img" src="../images/pause.png" />
+        </cover-view>
+        <cover-view class="time">00:00</cover-view>
+      </cover-view>
+    </video>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import moduleA from 'module-a'; // aliasFields ignore module example
+
+console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
+
+export default class CoverViewPage extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Cover View'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    },
+    videoCtx: null
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    },
+    play() {
+      this.videoCtx.play();
+    },
+    pause() {
+      this.videoCtx.pause();
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    console.log(self);
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+  }
+  onReady() {
+    this.videoCtx = wepy.createVideoContext('myVideo');
+  }
+}
+</script>
