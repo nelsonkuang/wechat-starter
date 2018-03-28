@@ -5,6 +5,8 @@
 .section {
   display: block;
   width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
   margin-bottom: 20rpx;
   .section__title {
     font-weight: 700;
@@ -164,7 +166,7 @@ export default class BasicTagsPage extends wepy.page {
     console.log(self);
     if (this.$parent.globalData.userInfo) {
       self.userInfo = this.$parent.globalData.userInfo;
-      self.$apply();
+      self.$apply(); // 在异步函数中更新数据的时，必须手动调用$apply方法
     }
   }
 }

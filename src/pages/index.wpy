@@ -44,6 +44,8 @@
         <navigator url="/pages/movable-area" class="navigator" hover-class="navigator-hover">Movable Area</navigator>
         <navigator url="/pages/cover-view" class="navigator" hover-class="navigator-hover">Cover View</navigator>
         <navigator url="/pages/basic-tags" class="navigator" hover-class="navigator-hover">Base Tags</navigator>
+        <navigator url="/pages/form-tags" class="navigator" hover-class="navigator-hover">Form Tags</navigator>
+        <navigator url="/pages/images" class="navigator" hover-class="navigator-hover">Image</navigator>
       </view>
     </panel>
 
@@ -93,8 +95,8 @@
 
     <panel>
       <view class="title" slot="title">测试组件Repeat</view>
-      <repeat for="" index="index" item="item" key="key">
-        <group :grouplist="item" :indexa="index"></group>
+      <repeat for="{{groupList}}" index="index" item="item" key="index">
+        <group :grouplist="item" :index="index"></group>
       </repeat>
     </panel>
 
@@ -249,7 +251,7 @@ export default class Index extends wepy.page {
             i,
           success: function(d) {
             self.netrst += d.data + '.';
-            self.$apply();
+            self.$apply(); // 在异步函数中更新数据的时，必须手动调用$apply方法
           }
         });
       }

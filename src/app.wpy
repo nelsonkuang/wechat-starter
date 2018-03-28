@@ -21,7 +21,9 @@ export default class extends wepy.app {
       'pages/swiper',
       'pages/movable-area',
       'pages/cover-view',
-      'pages/basic-tags'
+      'pages/basic-tags',
+      'pages/form-tags',
+      'pages/images'
     ],
     window: {
       backgroundTextStyle: 'light',

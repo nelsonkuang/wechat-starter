@@ -1,5 +1,6 @@
 <style type="less">
-  .group {}
+.group {
+}
 </style>
 <template>
   <view class="group">
@@ -13,23 +14,23 @@
   </view>
 </template>
 <script>
-  import wepy from 'wepy'
-  import GroupItem from './groupitem'
+import wepy from 'wepy';
+import GroupItem from './groupitem';
 
-  export default class Group extends wepy.component {
-    props = {
-      grouplist: {},
-      index: {}
-    }
+export default class Group extends wepy.component {
+  props = {
+    grouplist: Object,
+    index: String
+  };
 
-    components = {
-      groupitem: GroupItem
+  components = {
+    groupitem: GroupItem
+  };
+  methods = {
+    tap() {
+      this.grouplist.name = `Parent Random(${Math.random()})`;
+      console.log(`Clicked Group ${this.$index}, ID is ${this.grouplist.id}`);
     }
-    methods = {
-      tap () {
-        this.grouplist.name = `Parent Random(${Math.random()})`
-        console.log(`Clicked Group ${this.$index}, ID is ${this.grouplist.id}`)
-      }
-    }
-  }
+  };
+}
 </script>
