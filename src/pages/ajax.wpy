@@ -1,0 +1,134 @@
+<style lang="less">
+.page-section {
+  margin-bottom: 20rpx;
+}
+.section {
+  display: block;
+  width: 100%;
+}
+.section__title {
+  font-weight: 700;
+  padding: 20rpx;
+}
+.flex-wrp {
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+}
+.flex-item {
+  padding: 20rpx;
+}
+.bc_green {
+  background: lightgreen;
+}
+.bc_red {
+  background: orange;
+}
+.bc_blue {
+  background: lightblue;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+    <view class="section">
+      <view class="section__title">用户列表</view>
+      <view class="flex-wrp" style="flex-direction:column;">
+        <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <view class="{{'flex-item ' + colors[index % 3]}}">
+            <text>{{item.id}}</text>: {{item.name + ' ' + item.address}}
+          </view>
+        </block>
+        <view style="width:100%;text-align:center;" wx:if="{{isLoading}}">
+          <image style="width: 100rpx; height: 100rpx;" src="../images/loading.gif"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import { getUsers } from '../service';
+
+export default class AjaxPage extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Ajax'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    },
+    list: [],
+    colors: ['bc_green', 'bc_red', 'bc_blue'],
+    isLoading: false,
+    isLastPage: false,
+    currentPage: 1
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+    this.getUsersByPage();
+  }
+  onReachBottom() {
+    console.log('onReachBottom');
+    if (!this.isLastPage) {
+      this.getUsersByPage(++this.currentPage);
+    }
+  }
+  async getUsersByPage(page = 1, forcedUpdate = false) {
+    this.isLoading = true;
+    const res = await getUsers(page);
+    if (forcedUpdate) {
+      this.list = [...res.data];
+      this.currentPage = 1;
+    } else {
+      if (res.data.length) {
+        this.list = this.list.concat(res.data || []);
+        this.currentPage = page
+      } else {
+        this.isLastPage = true
+      }
+    }
+    this.isLoading = false;
+    this.$apply();
+  }
+}
+</script>

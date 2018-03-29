@@ -48,6 +48,7 @@
         <navigator url="/pages/images" class="navigator" hover-class="navigator-hover">Image</navigator>
         <navigator url="/pages/map" class="navigator" hover-class="navigator-hover">Map</navigator>
         <navigator url="/pages/canvas" class="navigator" hover-class="navigator-hover">Canvas</navigator>
+        <navigator url="/pages/ajax" class="navigator" hover-class="navigator-hover">Ajax</navigator>
       </view>
     </panel>
 

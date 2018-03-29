@@ -1,6 +1,6 @@
 // 使用方式，非常简单地启动本地后台REST API模拟数据服务:
 // 1. 执行 npm install -g json-server 安装json-server
-// 2. 编辑本文件保存并执行 json-server --watch mock-db.js 启动json-server服务
+// 2. 编辑本文件保存并执行 json-server --watch mock-db.js 启动json-server服务 或者 用本地IP json-server --watch mock-db.js --host 10.2.10.192
 const Mock = require('mockjs')
 module.exports = () => Mock.mock({
   "address": {

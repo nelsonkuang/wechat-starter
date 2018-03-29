@@ -25,7 +25,8 @@ export default class extends wepy.app {
       'pages/form-tags',
       'pages/images',
       'pages/map',
-      'pages/canvas'
+      'pages/canvas',
+      'pages/ajax'
     ],
     window: {
       backgroundTextStyle: 'light',
