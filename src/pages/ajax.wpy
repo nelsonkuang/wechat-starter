@@ -99,13 +99,18 @@ export default class AjaxPage extends wepy.page {
 
   events = {};
 
-  onLoad() {
+  onLoad(options) {
+    console.log(options); // 测试带参数传值
     let self = this;
     if (this.$parent.globalData.userInfo) {
       self.userInfo = this.$parent.globalData.userInfo;
       self.$apply();
     }
     this.getUsersByPage();
+  }
+  onPullDownRefresh() {
+    console.log('onPullDownRefresh');
+    this.getUsersByPage(1, true);
   }
   onReachBottom() {
     console.log('onReachBottom');
