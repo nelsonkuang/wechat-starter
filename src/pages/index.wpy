@@ -38,9 +38,9 @@
     <panel>
       <view class="title" slot="title">视图容器</view>
       <view class="nav-area">
-        <navigator url="/pages/view" class="navigator" hover-class="navigator-hover">VIEW</navigator>
+        <navigator url="/pages/view" class="navigator" hover-class="navigator-hover" open-type="switchTab">VIEW</navigator>
         <navigator url="/pages/scroll-view" class="navigator" hover-class="navigator-hover">SCROLL VIEW</navigator>
-        <navigator url="/pages/swiper" class="navigator" hover-class="navigator-hover">SWIPER</navigator>
+        <navigator url="/pages/swiper" class="navigator" hover-class="navigator-hover" open-type="switchTab">SWIPER</navigator>
         <navigator url="/pages/movable-area" class="navigator" hover-class="navigator-hover">Movable Area</navigator>
         <navigator url="/pages/cover-view" class="navigator" hover-class="navigator-hover">Cover View</navigator>
         <navigator url="/pages/basic-tags" class="navigator" hover-class="navigator-hover">Base Tags</navigator>
@@ -48,7 +48,8 @@
         <navigator url="/pages/images" class="navigator" hover-class="navigator-hover">Image</navigator>
         <navigator url="/pages/map" class="navigator" hover-class="navigator-hover">Map</navigator>
         <navigator url="/pages/canvas" class="navigator" hover-class="navigator-hover">Canvas</navigator>
-        <navigator url="/pages/ajax?page=1" class="navigator" hover-class="navigator-hover">Ajax</navigator>
+        <navigator url="/pages/ajax?page=1" class="navigator" hover-class="navigator-hover" open-type="switchTab">Ajax</navigator>
+        <navigator url="/pages/animation" class="navigator" hover-class="navigator-hover">Animation</navigator>
       </view>
     </panel>
 
@@ -200,7 +201,8 @@ export default class Index extends wepy.page {
         ]
       }
     ],
-    imgLoadList: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
+    imgLoadList:
+      'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
   };
 
   computed = {
@@ -209,7 +211,7 @@ export default class Index extends wepy.page {
     }
   };
 
-  imgsLoaded () {
+  imgsLoaded() {
     this.imgLoadList = [];
   }
 

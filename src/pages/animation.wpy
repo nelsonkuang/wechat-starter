@@ -1,0 +1,109 @@
+<style lang="less">
+.page-section {
+  margin-bottom: 20rpx;
+}
+.section {
+  display: block;
+  width: 100%;
+}
+.flex-wrp {
+  display: flex;
+  align-items: flex-start;
+}
+.bc_green {
+  background: green;
+  width: 100px;
+  height: 100px;
+}
+.bc_red {
+  background: red;
+  width: 100px;
+  height: 100px;
+}
+.bc_blue {
+  background: blue;
+  width: 100px;
+  height: 100px;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName+'dkfj dkjfkdjfkdj fkdjfkdjfk djfkdjfk djfkdj fkdjf' }}</view>
+    </view>
+  <view class="section">
+    <view class="section__title">flex-direction: row</view>
+    <view class="flex-wrp" style="flex-direction:row;">
+      <view class="flex-item bc_green">1</view>
+      <view class="flex-item bc_red">2</view>
+      <view class="flex-item bc_blue">3</view>
+    </view>
+  </view>
+  <view class="section">
+    <view class="section__title">flex-direction: column</view>
+    <view class="flex-wrp" style="height: 300px;flex-direction:column;">
+      <view class="flex-item bc_green">1</view>
+      <view class="flex-item bc_red">2</view>
+      <view class="flex-item bc_blue">3</view>
+    </view>
+  </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import moduleA from 'module-a'; // aliasFields ignore module example
+
+console.log('moduleA ignored: ', moduleA); // => moduleA ignored: {}
+
+export default class AnimationPage extends wepy.page {
+  config = {
+    navigationBarTitleText: 'Animation'
+  };
+  components = {};
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    }
+  };
+
+  computed = {};
+
+  methods = {
+    handleViewTap(e) {
+      console.log(e);
+    }
+  };
+
+  events = {};
+
+  onLoad() {
+    let self = this;
+    console.log(self);
+    if (this.$parent.globalData.userInfo) {
+      self.userInfo = this.$parent.globalData.userInfo;
+      self.$apply();
+    }
+  }
+}
+</script>

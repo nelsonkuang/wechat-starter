@@ -1,36 +1,37 @@
 <template>
   <image wx:for="{{ _imgLoadList }}" wx:key="*this" src="{{ item }}" data-src="{{ item }}" @load="_imgOnLoadOrError" @error="_imgOnLoadOrError" style="width:0;height:0;opacity:0" />
 </template>
-
-</template>
 <script>
-  import wepy from 'wepy'
+import wepy from 'wepy';
 
-  export default class ImgLoader extends wepy.component {
-    data = {
-      _imgLoadList: []
-    }
-    props = {
-      imgLoadList: [Array, String],
-      imgsLoaded: Function
-    }
-    methods = {
-      _imgOnLoadOrError(e) {
-        let list = this._imgLoadList
-        list.splice(list.indexOf(e.currentTarget.dataset.src), 1)
-        this._imgLoadList = list
-        if (this._imgLoadList.length === 0) {
-          this.imgsLoaded && this.imgsLoaded();
-          console.log('加载图片完成！');
-        }
+export default class ImgLoader extends wepy.component {
+  data = {
+    _imgLoadList: []
+  };
+  props = {
+    imgLoadList: [Array, String],
+    imgsLoaded: Function
+  };
+  methods = {
+    _imgOnLoadOrError(e) {
+      let list = this._imgLoadList;
+      list.splice(list.indexOf(e.currentTarget.dataset.src), 1);
+      this._imgLoadList = list;
+      if (this._imgLoadList.length === 0) {
+        this.imgsLoaded && this.imgsLoaded();
+        console.log('加载图片完成！');
       }
     }
-    onLoad() {
-      if (typeof this.imgLoadList === 'string' && this.imgLoadList.length > 1) {
-        this._imgLoadList.push(this.imgLoadList);
-      } else if (Object.prototype.toString.call(this.imgLoadList) === '[object Array]' && this.imgLoadList.length > 0) {
-        this._imgLoadList = [...this.imgLoadList];
-      }
+  };
+  onLoad() {
+    if (typeof this.imgLoadList === 'string' && this.imgLoadList.length > 1) {
+      this._imgLoadList.push(this.imgLoadList);
+    } else if (
+      Object.prototype.toString.call(this.imgLoadList) === '[object Array]' &&
+      this.imgLoadList.length > 0
+    ) {
+      this._imgLoadList = [...this.imgLoadList];
     }
   }
+}
 </script>

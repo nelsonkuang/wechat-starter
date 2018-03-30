@@ -26,7 +26,8 @@ export default class extends wepy.app {
       'pages/images',
       'pages/map',
       'pages/canvas',
-      'pages/ajax'
+      'pages/ajax',
+      'pages/animation'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -35,32 +36,37 @@ export default class extends wepy.app {
       navigationBarTextStyle: 'black',
       enablePullDownRefresh: true
     },
-    'tabBar': {
-      'color': '#999999',
-      'selectedColor': '#ff6a3c',
-      'backgroundColor': '#ffffff',
-      'borderStyle': 'black',
-      'list': [{
-        'pagePath': 'pages/index',
-        'text': '首页',
-        'iconPath': 'images/icon_home.png',
-        'selectedIconPath': 'images/icon_home_active.png'
-      }, {
-        'pagePath': 'pages/view',
-        'text': '分类',
-        'iconPath': 'images/icon_classify.png',
-        'selectedIconPath': 'images/icon_classify_active.png'
-      }, {
-        'pagePath': 'pages/swiper',
-        'text': '购物车',
-        'iconPath': 'images/icon_shop_cart.png',
-        'selectedIconPath': 'images/icon_shop_cart_active.png'
-      }, {
-        'pagePath': 'pages/ajax',
-        'text': '我',
-        'iconPath': 'images/icon_info.png',
-        'selectedIconPath': 'images/icon_info_active.png'
-      }]
+    tabBar: {
+      color: '#999999',
+      selectedColor: '#ff6a3c',
+      backgroundColor: '#ffffff',
+      borderStyle: 'black',
+      list: [
+        {
+          pagePath: 'pages/index',
+          text: '首页',
+          iconPath: 'images/icon_home.png',
+          selectedIconPath: 'images/icon_home_active.png'
+        },
+        {
+          pagePath: 'pages/view',
+          text: '分类',
+          iconPath: 'images/icon_classify.png',
+          selectedIconPath: 'images/icon_classify_active.png'
+        },
+        {
+          pagePath: 'pages/swiper',
+          text: '购物车',
+          iconPath: 'images/icon_shop_cart.png',
+          selectedIconPath: 'images/icon_shop_cart_active.png'
+        },
+        {
+          pagePath: 'pages/ajax',
+          text: '我',
+          iconPath: 'images/icon_info.png',
+          selectedIconPath: 'images/icon_info_active.png'
+        }
+      ]
     }
   };
 
