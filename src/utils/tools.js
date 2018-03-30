@@ -7,12 +7,14 @@ export const getCurrentTime = () => {
   m = m < 10 ? '0' + m : m;
   const d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
   const h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-  const f = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-  const s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-  return y + '' + m + '' + d + '' + h + '' + f + '' + s; //20160614134947
-}
+  const f =
+    date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+  const s =
+    date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+  return y + '' + m + '' + d + '' + h + '' + f + '' + s; // 20160614134947
+};
 
-export const setStorage = ({key, data}, isSync = false) => {
+export const setStorage = ({ key, data }, isSync = false) => {
   try {
     if (isSync) {
       wepy.setStorageSync(key, data);
@@ -22,19 +24,15 @@ export const setStorage = ({key, data}, isSync = false) => {
         data: data
       });
     }
-  } catch (e) {  
-  }
-}
+  } catch (e) {}
+};
 
 export const getStorage = (key, isSync = false) => {
-  if(isSync) {
+  if (isSync) {
     try {
       return wepy.getStorageSync(key);
-    }
-    catch (e) {     
-    }
-  }
-  else {
+    } catch (e) {}
+  } else {
     return new Promise((resolve, reject) => {
       try {
         wepy.getStorage({
@@ -47,21 +45,18 @@ export const getStorage = (key, isSync = false) => {
           }
         });
       } catch (error) {
-        reject(error); 
+        reject(error);
       }
     });
   }
-}
+};
 
 export const getStorageInfo = (isSync = false) => {
-  if(isSync) {
+  if (isSync) {
     try {
       return wepy.getStorageInfoSync();
-    }
-    catch (e) {     
-    }
-  }
-  else {
+    } catch (e) {}
+  } else {
     return new Promise((resolve, reject) => {
       try {
         wepy.getStorageInfo({
@@ -73,21 +68,18 @@ export const getStorageInfo = (isSync = false) => {
           }
         });
       } catch (error) {
-        reject(error); 
+        reject(error);
       }
     });
   }
-}
+};
 
 export const removeStorage = (key, isSync = false) => {
-  if(isSync) {
+  if (isSync) {
     try {
       return wepy.removeStorageSync(key);
-    }
-    catch (e) {
-    }
-  }
-  else {
+    } catch (e) {}
+  } else {
     return new Promise((resolve, reject) => {
       try {
         wepy.removeStorage({
@@ -100,22 +92,20 @@ export const removeStorage = (key, isSync = false) => {
           }
         });
       } catch (error) {
-        reject(error); 
+        reject(error);
       }
     });
   }
-}
+};
 
 export const clearStorage = (isSync = false) => {
-  if(isSync) {
+  if (isSync) {
     try {
       return wepy.clearStorageSync();
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-  }
-  else {
+  } else {
     wepy.clearStorage();
   }
-}
+};
