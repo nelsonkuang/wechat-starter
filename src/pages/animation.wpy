@@ -55,7 +55,7 @@
     <view class="section__title">flex-direction: row</view>
     <view class="flex-wrp" style="flex-direction:row;">
       <view class="flex-item bc_green">1</view>
-      <view class="flex-item bc_red">2</view>
+      <view class="flex-item bc_red" animation="{{animationData}}">2</view>
       <view class="flex-item bc_blue">3</view>
     </view>
   </view>
@@ -64,7 +64,7 @@
     <view class="flex-wrp" style="height: 300px;flex-direction:column;">
       <view class="flex-item bc_green">1</view>
       <view class="flex-item bc_red">2</view>
-      <view class="flex-item bc_blue">3</view>
+      <view class="flex-item bc_blue" animation="{{animationData}}">3</view>
     </view>
   </view>
   </view>
@@ -84,7 +84,8 @@ export default class AnimationPage extends wepy.page {
   data = {
     userInfo: {
       nickName: '加载中...'
-    }
+    },
+    animationData: ''
   };
 
   computed = {};
@@ -104,6 +105,43 @@ export default class AnimationPage extends wepy.page {
       self.userInfo = this.$parent.globalData.userInfo;
       self.$apply();
     }
+  }
+
+  onShow() {
+    // 创建动画
+    var animation = wepy.createAnimation({
+      transformOrigin: '50% 50%',
+      duration: 200,
+      timingFunction: 'linear',
+      delay: 0
+    });
+    this.animation = animation;
+
+    setTimeout(
+      function() {
+        animation
+          .scale(1.5, 1.5)
+          .rotate(360)
+          .opacity(0.2)
+          .step();
+
+        this.animationData = animation.export();
+        this.$apply();
+      }.bind(this),
+      1000
+    );
+
+    setTimeout(
+      function() {
+        animation
+          .translate(100)
+          .opacity(0.8)
+          .step();
+        this.animationData = animation.export();
+        this.$apply();
+      }.bind(this),
+      2000
+    );
   }
 }
 </script>
