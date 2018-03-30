@@ -124,6 +124,7 @@ export default class AjaxPage extends wepy.page {
     if (forcedUpdate) {
       this.list = [...res.data];
       this.currentPage = 1;
+      this.isLastPage = false;
     } else {
       if (res.data.length) {
         this.list = this.list.concat(res.data || []);
@@ -134,6 +135,22 @@ export default class AjaxPage extends wepy.page {
     }
     this.isLoading = false;
     this.$apply();
+  }
+  onShareAppMessage (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: 'Ajax',
+      path: '/pages/ajax',
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
   }
 }
 </script>
