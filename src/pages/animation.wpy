@@ -109,7 +109,7 @@ export default class AnimationPage extends wepy.page {
 
   onShow() {
     // 创建动画
-    var animation = wepy.createAnimation({
+    let animation = wepy.createAnimation({
       transformOrigin: '50% 50%',
       duration: 200,
       timingFunction: 'linear',
