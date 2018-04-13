@@ -50,6 +50,7 @@
         <navigator url="/pages/canvas" class="navigator" hover-class="navigator-hover">Canvas</navigator>
         <navigator url="/pages/ajax?page=1" class="navigator" hover-class="navigator-hover" open-type="switchTab">Ajax</navigator>
         <navigator url="/pages/animation" class="navigator" hover-class="navigator-hover">Animation</navigator>
+        <navigator url="/pages/lifecycle" class="navigator" hover-class="navigator-hover">Lifecycle</navigator>
       </view>
     </panel>
 
@@ -220,13 +221,11 @@ export default class Index extends wepy.page {
       this.mynum++;
     },
     toast() {
-      let promise = this.$invoke('toast', 'show', {
+      this.$invoke('toast', 'show', {
         title: '自定义标题',
         img:
           'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
-      });
-
-      promise.then(d => {
+      }).then(d => {
         console.log('toast done');
       });
     },

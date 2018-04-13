@@ -27,7 +27,8 @@ export default class extends wepy.app {
       'pages/map',
       'pages/canvas',
       'pages/ajax',
-      'pages/animation'
+      'pages/animation',
+      'pages/lifecycle'
     ],
     window: {
       backgroundTextStyle: 'light',
