@@ -46,6 +46,30 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* 返回顶部 */
+.widget-goTop {
+  position: fixed;
+  bottom: 125px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.48);
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 500;
+  .gotop-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-size: 50px auto;
+  }
+}
 </style>
 <template>
   <view class="container">
@@ -56,14 +80,25 @@
     <view class="section">
       <view class="section__title">用户列表</view>
       <view class="flex-wrp" style="flex-direction:column;">
-        <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        <!--　<block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
           <view class="{{'flex-item ' + colors[index % 3]}}">
             <text>{{item.id}}</text>: {{item.name + ' ' + item.address}}
           </view>
-        </block>
+        </block>　-->
+        <repeat for="{{list}}" key="index" index="index" item="item">
+            <!-- child组件或者直接输出，同时传入item -->
+          <view class="{{'flex-item ' + colors[index % 3]}}">
+            <text>{{item.id}}</text>: {{item.name + ' ' + item.address}}
+          </view>
+        </repeat>
         <view style="width:100%;text-align:center;" wx:if="{{isLoading}}">
           <image style="width: 100rpx; height: 100rpx;" src="../images/loading.gif"></image>
         </view>
+      </view>
+    </view>
+    <view class="widget-goTop" @tap="goTop" wx:if="{{ showGoTop }}">
+      <view class="gotop-wrap">
+        <view>顶部</view>
       </view>
     </view>
   </view>
@@ -86,7 +121,8 @@ export default class AjaxPage extends wepy.page {
     colors: ['bc_green', 'bc_red', 'bc_blue'],
     isLoading: false,
     isLastPage: false,
-    currentPage: 1
+    currentPage: 1,
+    showGoTop: true
   };
 
   computed = {};
@@ -94,6 +130,12 @@ export default class AjaxPage extends wepy.page {
   methods = {
     handleViewTap(e) {
       console.log(e);
+    },
+    goTop() {
+      wepy.pageScrollTo({
+        scrollTop: 0,
+        duration: 300
+      });
     }
   };
 
@@ -120,6 +162,7 @@ export default class AjaxPage extends wepy.page {
   }
   async getUsersByPage(page = 1, forcedUpdate = false) {
     this.isLoading = true;
+    wepy.showNavigationBarLoading(); // 在标题栏中显示加载
     const res = await getUsers(page);
     if (forcedUpdate) {
       this.list = [...res.data];
@@ -128,18 +171,20 @@ export default class AjaxPage extends wepy.page {
     } else {
       if (res.data.length) {
         this.list = this.list.concat(res.data || []);
-        this.currentPage = page
+        this.currentPage = page;
       } else {
-        this.isLastPage = true
+        this.isLastPage = true;
       }
     }
     this.isLoading = false;
+    wepy.hideNavigationBarLoading(); // 完成停止加载
+    wepy.stopPullDownRefresh(); // 停止下拉刷新
     this.$apply();
   }
-  onShareAppMessage (res) {
+  onShareAppMessage(res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
+      console.log(res.target);
     }
     return {
       title: 'Ajax',
@@ -150,7 +195,7 @@ export default class AjaxPage extends wepy.page {
       fail: function(res) {
         // 转发失败
       }
-    }
+    };
   }
 }
 </script>
